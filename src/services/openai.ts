@@ -60,7 +60,7 @@ Please provide a comprehensive analysis following the system instructions.`;
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: "gpt-4.1",
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt }
@@ -70,7 +70,7 @@ Please provide a comprehensive analysis following the system instructions.`;
     });
 
     const analysisText = response.choices[0].message.content;
-    
+
     // Try to parse JSON response
     try {
       const jsonMatch = analysisText?.match(/\{[\s\S]*\}/);

@@ -50,8 +50,8 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart }) =
           <h3 className="text-2xl font-bold text-gray-900 mt-4">Overall CV Score</h3>
           <p className="text-gray-600 mt-2">
             {results.overallScore >= 80 ? 'Excellent! Your CV is well-optimized.' :
-             results.overallScore >= 60 ? 'Good foundation with room for improvement.' :
-             'Significant improvements needed to enhance your CV.'}
+              results.overallScore >= 60 ? 'Good foundation with room for improvement.' :
+                'Significant improvements needed to enhance your CV.'}
           </p>
         </div>
       </div>
@@ -71,7 +71,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart }) =
               </div>
             </div>
           </div>
-          
+
           <div className="space-y-4">
             {results.atsCompatibility.issues.length > 0 && (
               <div>
@@ -89,7 +89,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart }) =
                 </ul>
               </div>
             )}
-            
+
             {results.atsCompatibility.recommendations.length > 0 && (
               <div>
                 <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
@@ -122,7 +122,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart }) =
               </div>
             </div>
           </div>
-          
+
           <div className="space-y-4">
             {results.skillMatch.matchedSkills.length > 0 && (
               <div>
@@ -139,7 +139,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart }) =
                 </div>
               </div>
             )}
-            
+
             {results.skillMatch.missingSkills.length > 0 && (
               <div>
                 <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
@@ -171,7 +171,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart }) =
               </div>
             </div>
           </div>
-          
+
           <div className="space-y-4">
             {results.experienceMatch.strengths.length > 0 && (
               <div>
@@ -189,7 +189,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart }) =
                 </ul>
               </div>
             )}
-            
+
             {results.experienceMatch.gaps.length > 0 && (
               <div>
                 <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
@@ -216,7 +216,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart }) =
           <TrendingUp className="w-6 h-6 mr-3 text-blue-600" />
           Priority Improvement Areas
         </h3>
-        
+
         <div className="space-y-6">
           {results.improvementAreas.map((area, index) => (
             <div key={index} className="border border-gray-200 rounded-lg p-6">
@@ -229,7 +229,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart }) =
                   {area.priority.toUpperCase()}
                 </span>
               </div>
-              
+
               <div>
                 <h5 className="font-semibold text-gray-900 mb-2">Action Items:</h5>
                 <ul className="space-y-2">
