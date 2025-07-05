@@ -250,9 +250,9 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart }) =
       <div className="text-center">
         <button
           onClick={onRestart}
-          className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105"
+          className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-black hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105"
         >
-          Analyze Another CV
+          Analyze Another CV ➡️
         </button>
       </div>
     </div>
