@@ -60,7 +60,7 @@ Please provide a comprehensive analysis following the system instructions.`;
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4.1",
+      model: "gpt-4.1-mini",
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt }
