@@ -26,7 +26,7 @@ const CVUpload: React.FC<CVUploadProps> = ({ onCVUpload, onNext }) => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    
+
     const files = e.dataTransfer.files;
     if (files && files[0]) {
       handleFileUpload(files[0]);
@@ -47,26 +47,26 @@ const CVUpload: React.FC<CVUploadProps> = ({ onCVUpload, onNext }) => {
   };
 
   const handleFileUpload = async (file: File) => {
-    if (file.type === 'application/pdf' || 
-        file.type === 'application/msword' || 
-        file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-        file.type === 'text/plain') {
-      
+    if (file.type === 'application/pdf' ||
+      file.type === 'application/msword' ||
+      file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+      file.type === 'text/plain') {
+
       setUploading(true);
-      
+
       try {
         // Extract text content from file
         const content = await extractTextFromFile(file);
-        
+
         // Simulate processing time
         await new Promise(resolve => setTimeout(resolve, 1500));
-        
+
         const cvData: CVData = {
           fileName: file.name,
           content: content,
           uploadDate: new Date()
         };
-        
+
         setUploadedFile(cvData);
         onCVUpload(cvData);
         setUploading(false);
@@ -99,18 +99,17 @@ const CVUpload: React.FC<CVUploadProps> = ({ onCVUpload, onNext }) => {
       <div className="bg-white rounded-2xl shadow-lg p-8">
         {!uploadedFile ? (
           <div
-            className={`border-2 border-dashed rounded-xl p-12 text-center transition-colors ${
-              dragActive 
-                ? 'border-blue-500 bg-blue-50' 
-                : 'border-gray-300 hover:border-gray-400'
-            }`}
+            className={`border-2 border-dashed rounded-xl p-12 text-center transition-colors ${dragActive
+              ? 'border-blue-500 bg-blue-50'
+              : 'border-gray-300 hover:border-gray-400'
+              }`}
             onDragEnter={handleDrag}
             onDragLeave={handleDrag}
             onDragOver={handleDrag}
             onDrop={handleDrop}
           >
             <div className="mb-6">
-              <div className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mb-4">
+              <div className="mx-auto w-16 h-16 bg-black rounded-full flex items-center justify-center mb-4">
                 <Upload className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
@@ -136,7 +135,7 @@ const CVUpload: React.FC<CVUploadProps> = ({ onCVUpload, onNext }) => {
                 />
                 <label
                   htmlFor="cv-upload"
-                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 cursor-pointer transition-all duration-200 transform hover:scale-105"
+                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-black from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 cursor-pointer transition-all duration-200 transform hover:scale-105"
                 >
                   <Upload className="w-5 h-5 mr-2" />
                   Choose File
