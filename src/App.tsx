@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import Header from './components/Header';
 import CVUpload from './components/CVUpload';
 import PreferencesForm from './components/PreferencesForm';
@@ -74,6 +75,7 @@ function App() {
           />
         )}
       </main>
+      <Analytics />
     </div>
   );
 }
