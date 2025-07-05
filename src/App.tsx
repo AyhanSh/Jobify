@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import Header from './components/Header';
 import CVUpload from './components/CVUpload';
 import PreferencesForm from './components/PreferencesForm';
@@ -94,19 +95,20 @@ function App() {
         )}
       </main>
 
-            {/* Meme Popup */}
-      <MemePopup 
-        isOpen={showMemePopup} 
-        onClose={() => setShowMemePopup(false)} 
+      {/* Meme Popup */}
+      <MemePopup
+        isOpen={showMemePopup}
+        onClose={() => setShowMemePopup(false)}
       />
-      
+
       {/* Welcome Popup */}
-      <WelcomePopup 
-        isOpen={showWelcomePopup} 
-        onClose={() => setShowWelcomePopup(false)} 
+      <WelcomePopup
+        isOpen={showWelcomePopup}
+        onClose={() => setShowWelcomePopup(false)}
       />
-      
+
       <Analytics />
+      <SpeedInsights />
     </div>
   );
 }
