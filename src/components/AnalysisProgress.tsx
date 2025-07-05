@@ -195,7 +195,7 @@ const AnalysisProgress: React.FC<AnalysisProgressProps> = ({ cvData, preferences
           <div className="mt-8 text-center">
             <div className="inline-flex items-center px-4 py-2 bg-blue-50 rounded-lg text-blue-800">
               <Brain className="w-5 h-5 mr-2 animate-pulse" />
-              <span className="text-sm font-medium">ChatGPT is analyzing your CV...</span>
+              <span className="text-sm font-medium">AI is analyzing your CV...</span>
             </div>
           </div>
         )}

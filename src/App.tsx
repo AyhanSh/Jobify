@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import Header from './components/Header';
 import CVUpload from './components/CVUpload';
@@ -6,6 +6,7 @@ import PreferencesForm from './components/PreferencesForm';
 import AnalysisProgress from './components/AnalysisProgress';
 import ResultsDisplay from './components/ResultsDisplay';
 import MemePopup from './components/MemePopup';
+import WelcomePopup from './components/WelcomePopup';
 import { CVData, UserPreferences, AnalysisResult, AppStep } from './types';
 
 function App() {
@@ -14,6 +15,16 @@ function App() {
   const [preferences, setPreferences] = useState<UserPreferences | null>(null);
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [showMemePopup, setShowMemePopup] = useState(false);
+  const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+
+  // Check if it's the user's first visit
+  useEffect(() => {
+    const hasVisited = localStorage.getItem('jobify-welcome-shown');
+    if (!hasVisited) {
+      setShowWelcomePopup(true);
+      localStorage.setItem('jobify-welcome-shown', 'true');
+    }
+  }, []);
 
   const getStepNumber = (step: AppStep): number => {
     switch (step) {
@@ -83,12 +94,18 @@ function App() {
         )}
       </main>
 
-      {/* Meme Popup */}
-      <MemePopup
-        isOpen={showMemePopup}
-        onClose={() => setShowMemePopup(false)}
+            {/* Meme Popup */}
+      <MemePopup 
+        isOpen={showMemePopup} 
+        onClose={() => setShowMemePopup(false)} 
       />
-
+      
+      {/* Welcome Popup */}
+      <WelcomePopup 
+        isOpen={showWelcomePopup} 
+        onClose={() => setShowWelcomePopup(false)} 
+      />
+      
       <Analytics />
     </div>
   );

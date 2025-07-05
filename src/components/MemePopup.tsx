@@ -9,15 +9,15 @@ const MemePopup: React.FC<MemePopupProps> = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center animate-fadeIn">
             {/* Blurred background overlay */}
             <div
-                className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-fadeIn"
                 onClick={onClose}
             />
 
             {/* Popup content */}
-            <div className="relative bg-white rounded-2xl shadow-2xl p-8 max-w-md mx-4 transform transition-all">
+            <div className="relative bg-white rounded-2xl shadow-2xl p-8 max-w-md mx-4 transform animate-slideIn">
                 {/* Close button */}
                 <button
                     onClick={onClose}
