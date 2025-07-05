@@ -90,9 +90,9 @@ const CVUpload: React.FC<CVUploadProps> = ({ onCVUpload, onNext }) => {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">Upload Your CV</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-4">Upload Your CV ✅</h2>
         <p className="text-lg text-gray-600">
-          Upload your CV to get started with AI-powered ChatGPT analysis
+          Upload your CV so we can know how to save you from unemployment
         </p>
       </div>
 
@@ -113,7 +113,7 @@ const CVUpload: React.FC<CVUploadProps> = ({ onCVUpload, onNext }) => {
                 <Upload className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                {uploading ? 'Processing your CV...' : 'Drop your CV here'}
+                {uploading ? 'Processing your CV...' : 'Drop your CV here ⬇️'}
               </h3>
               <p className="text-gray-600">
                 {uploading ? 'Please wait while we process your document' : 'or click to browse files'}
@@ -165,9 +165,9 @@ const CVUpload: React.FC<CVUploadProps> = ({ onCVUpload, onNext }) => {
             </div>
             <button
               onClick={onNext}
-              className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105"
+              className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-black hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105"
             >
-              Continue to Preferences
+              Continue to Preferences ➡️
             </button>
           </div>
         )}

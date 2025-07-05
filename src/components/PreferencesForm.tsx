@@ -65,7 +65,7 @@ const PreferencesForm: React.FC<PreferencesFormProps> = ({ onSubmit }) => {
             <input
               type="text"
               value={preferences.targetPosition}
-              onChange={(e) => setPreferences({...preferences, targetPosition: e.target.value})}
+              onChange={(e) => setPreferences({ ...preferences, targetPosition: e.target.value })}
               placeholder="e.g., Software Engineer, Marketing Manager, Data Analyst"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
               required
@@ -81,7 +81,7 @@ const PreferencesForm: React.FC<PreferencesFormProps> = ({ onSubmit }) => {
             <input
               type="number"
               value={preferences.age}
-              onChange={(e) => setPreferences({...preferences, age: parseInt(e.target.value)})}
+              onChange={(e) => setPreferences({ ...preferences, age: parseInt(e.target.value) })}
               min="18"
               max="70"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
@@ -98,7 +98,7 @@ const PreferencesForm: React.FC<PreferencesFormProps> = ({ onSubmit }) => {
             <input
               type="number"
               value={preferences.experienceYears}
-              onChange={(e) => setPreferences({...preferences, experienceYears: parseInt(e.target.value)})}
+              onChange={(e) => setPreferences({ ...preferences, experienceYears: parseInt(e.target.value) })}
               min="0"
               max="50"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
@@ -114,7 +114,7 @@ const PreferencesForm: React.FC<PreferencesFormProps> = ({ onSubmit }) => {
             </div>
             <select
               value={preferences.highestDegree}
-              onChange={(e) => setPreferences({...preferences, highestDegree: e.target.value})}
+              onChange={(e) => setPreferences({ ...preferences, highestDegree: e.target.value })}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
               required
             >
@@ -133,7 +133,7 @@ const PreferencesForm: React.FC<PreferencesFormProps> = ({ onSubmit }) => {
             </div>
             <select
               value={preferences.industry}
-              onChange={(e) => setPreferences({...preferences, industry: e.target.value})}
+              onChange={(e) => setPreferences({ ...preferences, industry: e.target.value })}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
               required
             >
@@ -151,19 +151,19 @@ const PreferencesForm: React.FC<PreferencesFormProps> = ({ onSubmit }) => {
                 type="checkbox"
                 id="ongoing-degree"
                 checked={preferences.hasOngoingDegree}
-                onChange={(e) => setPreferences({...preferences, hasOngoingDegree: e.target.checked})}
+                onChange={(e) => setPreferences({ ...preferences, hasOngoingDegree: e.target.checked })}
                 className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
               />
               <label htmlFor="ongoing-degree" className="ml-3 text-lg font-semibold text-gray-900">
                 I am currently pursuing a degree
               </label>
             </div>
-            
+
             {preferences.hasOngoingDegree && (
               <input
                 type="text"
                 value={preferences.ongoingDegree || ''}
-                onChange={(e) => setPreferences({...preferences, ongoingDegree: e.target.value})}
+                onChange={(e) => setPreferences({ ...preferences, ongoingDegree: e.target.value })}
                 placeholder="e.g., Master's in Computer Science, MBA"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
               />
@@ -174,10 +174,10 @@ const PreferencesForm: React.FC<PreferencesFormProps> = ({ onSubmit }) => {
         <div className="mt-8 flex justify-center">
           <button
             type="submit"
-            className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105"
+            className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-black hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105"
           >
-            Start Analysis
-            <ArrowRight className="w-5 h-5 ml-2" />
+            Start Analysis ➡️
+
           </button>
         </div>
       </form>
