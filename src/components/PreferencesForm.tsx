@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { UserPreferences } from '../types';
-import { ArrowRight, User, GraduationCap, Briefcase } from 'lucide-react';
+import { User, GraduationCap, Briefcase } from 'lucide-react';
 
 interface PreferencesFormProps {
   onSubmit: (preferences: UserPreferences) => void;

@@ -29,7 +29,7 @@ const AnalysisProgress: React.FC<AnalysisProgressProps> = ({ cvData, preferences
     {
       icon: Brain,
       title: 'AI-Powered Analysis',
-      description: 'Analyzing skills, experience, and job fit using ChatGPT'
+      description: 'Analyzing skills, experience, and job fit using AI 🤖'
     },
     {
       icon: CheckCircle,
@@ -109,7 +109,7 @@ const AnalysisProgress: React.FC<AnalysisProgressProps> = ({ cvData, preferences
           </div>
           <button
             onClick={retryAnalysis}
-            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
+            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-black hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
           >
             Try Again
           </button>
@@ -121,12 +121,12 @@ const AnalysisProgress: React.FC<AnalysisProgressProps> = ({ cvData, preferences
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="text-center mb-8">
-        <div className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mb-4">
+        <div className="mx-auto w-16 h-16 bg-black rounded-full flex items-center justify-center mb-4">
           <Brain className="w-8 h-8 text-white animate-pulse" />
         </div>
         <h2 className="text-3xl font-bold text-gray-900 mb-4">AI is Analyzing Your CV</h2>
         <p className="text-lg text-gray-600">
-          ChatGPT is providing comprehensive insights about your application
+          And don't forget who's the GOAT of Azerbaijan.
         </p>
       </div>
 
@@ -138,8 +138,8 @@ const AnalysisProgress: React.FC<AnalysisProgressProps> = ({ cvData, preferences
             <span className="text-sm font-medium text-blue-600">{Math.round(progress)}%</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-3">
-            <div 
-              className="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all duration-300 ease-out"
+            <div
+              className="bg-black h-3 rounded-full transition-all duration-300 ease-out"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -151,36 +151,32 @@ const AnalysisProgress: React.FC<AnalysisProgressProps> = ({ cvData, preferences
             const Icon = step.icon;
             const isActive = index === currentStep;
             const isCompleted = index < currentStep;
-            
+
             return (
               <div
                 key={index}
-                className={`flex items-center p-4 rounded-lg transition-all duration-300 ${
-                  isActive 
-                    ? 'bg-blue-50 border-2 border-blue-200' 
-                    : isCompleted 
-                      ? 'bg-green-50 border-2 border-green-200' 
-                      : 'bg-gray-50 border-2 border-gray-200'
-                }`}
+                className={`flex items-center p-4 rounded-lg transition-all duration-300 ${isActive
+                  ? 'bg-blue-50 border-2 border-blue-200'
+                  : isCompleted
+                    ? 'bg-green-50 border-2 border-green-200'
+                    : 'bg-gray-50 border-2 border-gray-200'
+                  }`}
               >
-                <div className={`p-3 rounded-full mr-4 ${
-                  isActive 
-                    ? 'bg-blue-500 text-white' 
-                    : isCompleted 
-                      ? 'bg-green-500 text-white' 
-                      : 'bg-gray-300 text-gray-600'
-                }`}>
+                <div className={`p-3 rounded-full mr-4 ${isActive
+                  ? 'bg-blue-500 text-white'
+                  : isCompleted
+                    ? 'bg-green-500 text-white'
+                    : 'bg-gray-300 text-gray-600'
+                  }`}>
                   <Icon className="w-6 h-6" />
                 </div>
                 <div className="flex-1">
-                  <h3 className={`text-lg font-semibold ${
-                    isActive || isCompleted ? 'text-gray-900' : 'text-gray-600'
-                  }`}>
+                  <h3 className={`text-lg font-semibold ${isActive || isCompleted ? 'text-gray-900' : 'text-gray-600'
+                    }`}>
                     {step.title}
                   </h3>
-                  <p className={`text-sm ${
-                    isActive || isCompleted ? 'text-gray-700' : 'text-gray-500'
-                  }`}>
+                  <p className={`text-sm ${isActive || isCompleted ? 'text-gray-700' : 'text-gray-500'
+                    }`}>
                     {step.description}
                   </p>
                 </div>
