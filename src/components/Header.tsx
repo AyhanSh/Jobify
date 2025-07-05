@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({ currentStep }) => {
               <Brain className="w-8 h-8 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">UnJobify</h1>
+              <h1 className="text-2xl font-bold text-gray-900">UnJobify Beta</h1>
               <p className="text-sm text-gray-600">prod. by Aykhan Shahbazov</p>
             </div>
           </div>
