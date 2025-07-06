@@ -17,13 +17,14 @@ const WelcomePopup: React.FC<WelcomePopupProps> = ({ isOpen, onClose }) => {
             />
 
             {/* Popup content */}
-            <div className="relative bg-white rounded-2xl shadow-2xl p-4 sm:p-8 w-full max-w-xs sm:max-w-lg mx-2 sm:mx-4 transform animate-slideIn">
+            <div className="relative bg-white rounded-2xl shadow-2xl p-4 sm:p-8 w-full max-w-xs sm:max-w-lg mx-2 sm:mx-4 transform animate-slideIn overflow-y-auto max-h-[90vh]">
                 {/* Close button */}
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+                    className="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-400 hover:text-gray-600 transition-colors p-2 sm:p-0 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    style={{ touchAction: 'manipulation' }}
                 >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-7 h-7 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
@@ -31,19 +32,19 @@ const WelcomePopup: React.FC<WelcomePopupProps> = ({ isOpen, onClose }) => {
                 {/* Content with left alignment */}
                 <div className="text-left">
                     {/* Title */}
-                    <h2 className="text-3xl font-bold text-gray-800 mb-2">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
                         Welcome to Jobify Beta
                     </h2>
 
                     {/* Date and Version */}
-                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600 mb-4">
                         <span>5th July 2025</span>
                         <span>•</span>
                         <span>🚀 v0.1.0</span>
                     </div>
 
                     {/* Message */}
-                    <div className="space-y-4 text-gray-700 leading-relaxed">
+                    <div className="space-y-3 sm:space-y-4 text-gray-700 leading-relaxed text-sm sm:text-base">
                         <p>
                             Welcome to Jobify Beta! This is your AI-powered companion
                             that transforms your CV analysis experience.
@@ -61,9 +62,9 @@ const WelcomePopup: React.FC<WelcomePopupProps> = ({ isOpen, onClose }) => {
                     </div>
 
                     {/* Messenger */}
-                    <div className="mt-6 pt-4 border-t border-gray-200">
+                    <div className="mt-4 sm:mt-6 pt-4 border-t border-gray-200">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden flex-shrink-0">
                                 <img
                                     src="/profile.jpeg"
                                     alt="Aykhan Shahbazov"
@@ -71,18 +72,19 @@ const WelcomePopup: React.FC<WelcomePopupProps> = ({ isOpen, onClose }) => {
                                 />
                             </div>
                             <div>
-                                <p className="font-semibold text-gray-800">Aykhan Shahbazov</p>
-                                <p className="text-sm text-gray-600">Experience Specialist at Kyriba</p>
+                                <p className="font-semibold text-gray-800 text-sm sm:text-base">Aykhan Shahbazov</p>
+                                <p className="text-xs sm:text-sm text-gray-600">Experience Specialist at Kyriba</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Close button at bottom */}
-                <div className="mt-6 text-center">
+                <div className="mt-4 sm:mt-6 text-center">
                     <button
                         onClick={onClose}
                         className="bg-black text-white w-full sm:w-auto px-6 sm:px-8 py-3 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-200 font-medium text-base sm:text-lg"
+                        style={{ touchAction: 'manipulation' }}
                     >
                         Let's Get Started!
                     </button>
