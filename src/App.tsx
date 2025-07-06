@@ -8,6 +8,7 @@ import AnalysisProgress from './components/AnalysisProgress';
 import ResultsDisplay from './components/ResultsDisplay';
 import MemePopup from './components/MemePopup';
 import WelcomePopup from './components/WelcomePopup';
+import FeedbackForm from './components/FeedbackForm';
 import { CVData, UserPreferences, AnalysisResult, AppStep } from './types';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [showMemePopup, setShowMemePopup] = useState(false);
   const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
 
   // Check if it's the user's first visit
   useEffect(() => {
@@ -26,6 +28,9 @@ function App() {
       localStorage.setItem('jobify-welcome-shown', 'true');
     }
   }, []);
+
+  // Helper to detect mobile
+  const isMobile = window.innerWidth <= 768;
 
   const getStepNumber = (step: AppStep): number => {
     switch (step) {
@@ -106,6 +111,19 @@ function App() {
         isOpen={showWelcomePopup}
         onClose={() => setShowWelcomePopup(false)}
       />
+
+      {/* Floating feedback button for desktop only */}
+      {!isMobile && (
+        <button
+          className="fixed bottom-6 right-6 z-40 bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700 flex items-center gap-2"
+          onClick={() => setShowFeedback(true)}
+        >
+          <span>Improve the app</span> <span role="img" aria-label="lightbulb">💡</span>
+        </button>
+      )}
+      {showFeedback && (
+        <FeedbackForm onClose={() => setShowFeedback(false)} />
+      )}
 
       <Analytics />
       <SpeedInsights />
