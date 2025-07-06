@@ -29,9 +29,6 @@ function App() {
     }
   }, []);
 
-  // Helper to detect mobile
-  const isMobile = window.innerWidth <= 768;
-
   const getStepNumber = (step: AppStep): number => {
     switch (step) {
       case 'upload': return 0;
@@ -112,15 +109,13 @@ function App() {
         onClose={() => setShowWelcomePopup(false)}
       />
 
-      {/* Floating feedback button for desktop only */}
-      {!isMobile && (
-        <button
-          className="fixed bottom-6 right-6 z-40 bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700 flex items-center gap-2"
-          onClick={() => setShowFeedback(true)}
-        >
-          <span>Improve the app</span> <span role="img" aria-label="lightbulb">💡</span>
-        </button>
-      )}
+      {/* Floating feedback button for all devices */}
+      <button
+        className="fixed bottom-6 right-6 z-40 bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700 flex items-center gap-2"
+        onClick={() => setShowFeedback(true)}
+      >
+        <span>Improve the app</span> <span role="img" aria-label="lightbulb">💡</span>
+      </button>
       {showFeedback && (
         <FeedbackForm onClose={() => setShowFeedback(false)} />
       )}

@@ -103,8 +103,7 @@ const AnalysisProgress: React.FC<AnalysisProgressProps> = ({ cvData, preferences
           <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 px-2">{error}</p>
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6 text-left">
             <p className="text-xs sm:text-sm text-yellow-800">
-              <strong>Note:</strong> To use this feature, you need to add your OpenAI API key to the environment variables.
-              Create a <code className="bg-yellow-100 px-1 rounded">.env</code> file and add: <code className="bg-yellow-100 px-1 rounded">VITE_OPENAI_API_KEY=your_api_key_here</code>
+              <code className="bg-yellow-100 px-1 rounded">ERROR 404</code>
             </p>
           </div>
           <button

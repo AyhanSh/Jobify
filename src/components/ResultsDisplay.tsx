@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { AnalysisResult } from '../types';
 import { CheckCircle, AlertTriangle, TrendingUp, Briefcase, Target, Star } from 'lucide-react';
 import FeedbackForm from './FeedbackForm';
@@ -9,19 +9,6 @@ interface ResultsDisplayProps {
 }
 
 const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart }) => {
-  const [showFeedback, setShowFeedback] = useState(false);
-  // Helper to detect mobile
-  const isMobile = window.innerWidth <= 768;
-
-  useEffect(() => {
-    if (isMobile) {
-      const timer = setTimeout(() => {
-        setShowFeedback(true);
-      }, 60000); // 1 minute
-      return () => clearTimeout(timer);
-    }
-  }, [isMobile, results]);
-
   const getScoreColor = (score: number) => {
     if (score >= 80) return 'text-green-600';
     if (score >= 60) return 'text-yellow-600';
@@ -269,10 +256,6 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart }) =
           Analyze Another CV ➡️
         </button>
       </div>
-
-      {showFeedback && isMobile && (
-        <FeedbackForm onClose={() => setShowFeedback(false)} />
-      )}
     </div>
   );
 };
