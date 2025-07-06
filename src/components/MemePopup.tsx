@@ -17,7 +17,7 @@ const MemePopup: React.FC<MemePopupProps> = ({ isOpen, onClose }) => {
             />
 
             {/* Popup content */}
-            <div className="relative bg-white rounded-2xl shadow-2xl p-8 max-w-md mx-4 transform animate-slideIn">
+            <div className="relative bg-white rounded-2xl shadow-2xl p-4 sm:p-8 w-full max-w-xs sm:max-w-md mx-2 sm:mx-4 transform animate-slideIn">
                 {/* Close button */}
                 <button
                     onClick={onClose}
@@ -48,7 +48,7 @@ const MemePopup: React.FC<MemePopupProps> = ({ isOpen, onClose }) => {
                 <div className="mt-6 text-center">
                     <button
                         onClick={onClose}
-                        className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-6 py-2 rounded-lg hover:from-red-600 hover:to-pink-600 transition-all duration-200 font-medium"
+                        className="bg-gradient-to-r from-red-500 to-pink-500 text-white w-full sm:w-auto px-6 sm:px-8 py-3 rounded-lg hover:from-red-600 hover:to-pink-600 transition-all duration-200 font-medium text-base sm:text-lg"
                     >
                         Close & Continue
                     </button>

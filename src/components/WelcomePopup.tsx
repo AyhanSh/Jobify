@@ -17,7 +17,7 @@ const WelcomePopup: React.FC<WelcomePopupProps> = ({ isOpen, onClose }) => {
             />
 
             {/* Popup content */}
-            <div className="relative bg-white rounded-2xl shadow-2xl p-8 max-w-lg mx-4 transform animate-slideIn">
+            <div className="relative bg-white rounded-2xl shadow-2xl p-4 sm:p-8 w-full max-w-xs sm:max-w-lg mx-2 sm:mx-4 transform animate-slideIn">
                 {/* Close button */}
                 <button
                     onClick={onClose}
@@ -82,7 +82,7 @@ const WelcomePopup: React.FC<WelcomePopupProps> = ({ isOpen, onClose }) => {
                 <div className="mt-6 text-center">
                     <button
                         onClick={onClose}
-                        className="bg-black text-white px-8 py-3 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-200 font-medium"
+                        className="bg-black text-white w-full sm:w-auto px-6 sm:px-8 py-3 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-200 font-medium text-base sm:text-lg"
                     >
                         Let's Get Started!
                     </button>
