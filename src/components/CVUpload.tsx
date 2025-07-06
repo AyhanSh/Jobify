@@ -96,7 +96,7 @@ const CVUpload: React.FC<CVUploadProps> = ({ onCVUpload, onNext }) => {
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-lg p-8">
+      <div className="bg-white rounded-2xl shadow-md p-4">
         {!uploadedFile ? (
           <div
             className={`border-2 border-dashed rounded-xl p-12 text-center transition-colors ${dragActive

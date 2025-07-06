@@ -55,7 +55,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart }) =
       </div>
 
       {/* Overall Score */}
-      <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-8 mb-6 sm:mb-8">
+      <div className="bg-white rounded-2xl shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
         <div className="text-center">
           <div className={`inline-flex items-center justify-center w-16 h-16 sm:w-24 sm:h-24 rounded-full text-2xl sm:text-4xl font-bold border-4 ${getScoreBgColor(results.overallScore)}`}>
             <span className={getScoreColor(results.overallScore)}>{results.overallScore}</span>
@@ -72,7 +72,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart }) =
       {/* Analysis Sections - Mobile Optimized */}
       <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8">
         {/* ATS Compatibility */}
-        <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
           <button
             onClick={() => toggleSection('ats')}
             className="w-full p-4 sm:p-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
@@ -131,7 +131,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart }) =
         </div>
 
         {/* Skill Match */}
-        <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
           <button
             onClick={() => toggleSection('skills')}
             className="w-full p-4 sm:p-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
@@ -188,7 +188,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart }) =
         </div>
 
         {/* Experience Match */}
-        <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
           <button
             onClick={() => toggleSection('experience')}
             className="w-full p-4 sm:p-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
@@ -248,7 +248,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart }) =
       </div>
 
       {/* Improvement Areas */}
-      <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-8 mb-6 sm:mb-8">
+      <div className="bg-white rounded-2xl shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
         <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 flex items-center">
           <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-blue-600" />
           Priority Improvement Areas

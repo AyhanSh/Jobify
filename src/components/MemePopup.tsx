@@ -18,15 +18,6 @@ const MemePopup: React.FC<MemePopupProps> = ({ isOpen, onClose }) => {
 
             {/* Popup content */}
             <div className="relative bg-white rounded-2xl shadow-2xl p-4 sm:p-8 w-full max-w-xs sm:max-w-md mx-2 sm:mx-4 transform animate-slideIn">
-                {/* Close button */}
-                <button
-                    onClick={onClose}
-                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
-                >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
 
                 {/* Title */}
                 <h2 className="text-2xl font-bold text-red-600 mb-4 text-center">
