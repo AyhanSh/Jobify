@@ -88,7 +88,7 @@ const CVUpload: React.FC<CVUploadProps> = ({ onCVUpload, onNext }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-2xl mx-auto p-6 flex flex-col items-center justify-center">
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">Upload Your CV ✅</h2>
         <p className="text-lg text-gray-600">
@@ -96,7 +96,7 @@ const CVUpload: React.FC<CVUploadProps> = ({ onCVUpload, onNext }) => {
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-md p-4">
+      <div className="bg-white rounded-2xl shadow-md p-8 w-full">
         {!uploadedFile ? (
           <div
             className={`border-2 border-dashed rounded-xl p-12 text-center transition-colors ${dragActive
@@ -172,6 +172,23 @@ const CVUpload: React.FC<CVUploadProps> = ({ onCVUpload, onNext }) => {
           </div>
         )}
       </div>
+
+      {/* OR separator and Google sign-in button */}
+      {!uploadedFile && (
+        <>
+          <div className="flex items-center w-full my-8">
+            <div className="flex-grow border-t border-gray-300"></div>
+            <span className="mx-4 text-gray-400 font-medium">or</span>
+            <div className="flex-grow border-t border-gray-300"></div>
+          </div>
+          <button
+            className="flex items-center justify-center w-full max-w-xs mx-auto bg-white border border-gray-200 rounded-lg shadow-sm px-6 py-3 text-base font-medium text-gray-800 hover:shadow-md transition-all"
+          >
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5 mr-3" />
+            Sign in with Google
+          </button>
+        </>
+      )}
     </div>
   );
 };

@@ -9,6 +9,7 @@ import ResultsDisplay from './components/ResultsDisplay';
 import MemePopup from './components/MemePopup';
 import WelcomePopup from './components/WelcomePopup';
 import FeedbackForm from './components/FeedbackForm';
+import Sidebar from './components/Sidebar';
 import { CVData, UserPreferences, AnalysisResult, AppStep } from './types';
 
 function App() {
@@ -66,62 +67,65 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header currentStep={getStepNumber(currentStep)} totalSteps={4} />
+    <div className="min-h-screen bg-gray-50 flex">
+      <Sidebar />
+      <div className="flex-1 ml-64">
+        <Header currentStep={getStepNumber(currentStep)} totalSteps={4} />
 
-      <main className="py-8">
-        {currentStep === 'upload' && (
-          <CVUpload
-            onCVUpload={handleCVUpload}
-            onNext={() => setCurrentStep('preferences')}
-          />
+        <main className="py-8">
+          {currentStep === 'upload' && (
+            <CVUpload
+              onCVUpload={handleCVUpload}
+              onNext={() => setCurrentStep('preferences')}
+            />
+          )}
+
+          {currentStep === 'preferences' && (
+            <PreferencesForm onSubmit={handlePreferencesSubmit} />
+          )}
+
+          {currentStep === 'analysis' && cvData && preferences && (
+            <AnalysisProgress
+              cvData={cvData}
+              preferences={preferences}
+              onComplete={handleAnalysisComplete}
+            />
+          )}
+
+          {currentStep === 'results' && analysisResult && (
+            <ResultsDisplay
+              results={analysisResult}
+              onRestart={handleRestart}
+            />
+          )}
+        </main>
+
+        {/* Meme Popup */}
+        <MemePopup
+          isOpen={showMemePopup}
+          onClose={() => setShowMemePopup(false)}
+        />
+
+        {/* Welcome Popup */}
+        <WelcomePopup
+          isOpen={showWelcomePopup}
+          onClose={() => setShowWelcomePopup(false)}
+        />
+
+        {/* Floating feedback button for all devices */}
+        <button
+          className="fixed bottom-6 right-6 z-40 bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700 flex items-center gap-2"
+          onClick={() => setShowFeedback(true)}
+        >
+          <span>Improve the app</span> <span role="img" aria-label="lightbulb">💡</span>
+        </button>
+        {showFeedback && (
+          <FeedbackForm onClose={() => setShowFeedback(false)} />
         )}
 
-        {currentStep === 'preferences' && (
-          <PreferencesForm onSubmit={handlePreferencesSubmit} />
-        )}
-
-        {currentStep === 'analysis' && cvData && preferences && (
-          <AnalysisProgress
-            cvData={cvData}
-            preferences={preferences}
-            onComplete={handleAnalysisComplete}
-          />
-        )}
-
-        {currentStep === 'results' && analysisResult && (
-          <ResultsDisplay
-            results={analysisResult}
-            onRestart={handleRestart}
-          />
-        )}
-      </main>
-
-      {/* Meme Popup */}
-      <MemePopup
-        isOpen={showMemePopup}
-        onClose={() => setShowMemePopup(false)}
-      />
-
-      {/* Welcome Popup */}
-      <WelcomePopup
-        isOpen={showWelcomePopup}
-        onClose={() => setShowWelcomePopup(false)}
-      />
-
-      {/* Floating feedback button for all devices */}
-      <button
-        className="fixed bottom-6 right-6 z-40 bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700 flex items-center gap-2"
-        onClick={() => setShowFeedback(true)}
-      >
-        <span>Improve the app</span> <span role="img" aria-label="lightbulb">💡</span>
-      </button>
-      {showFeedback && (
-        <FeedbackForm onClose={() => setShowFeedback(false)} />
-      )}
-
-      <Analytics />
-      <SpeedInsights />
+        <Analytics />
+        <SpeedInsights />
+      </div>
     </div>
   );
 }
