@@ -21,30 +21,16 @@ import AboutPage from './components/AboutPage';
 // Auth Callback Component
 function AuthCallback() {
   const navigate = useNavigate();
-  const { user } = useAuth();
 
   useEffect(() => {
     const handleAuthCallback = async () => {
-      try {
-        const { data, error } = await supabase.auth.getSession();
-
-        if (error) {
-          console.error('Auth callback error:', error);
-          navigate('/');
-          return;
-        }
-
-        if (data.session) {
-          // Successfully authenticated, redirect to home
-          navigate('/');
-        } else {
-          // No session, redirect to home
-          navigate('/');
-        }
-      } catch (error) {
+      // Parse the URL hash and set the session (Supabase v2+)
+      const { error } = await supabase.auth.exchangeCodeForSession(window.location.href);
+      if (error) {
         console.error('Auth callback error:', error);
-        navigate('/');
       }
+      // Redirect to home (or wherever you want)
+      navigate('/');
     };
 
     handleAuthCallback();
