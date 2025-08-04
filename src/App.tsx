@@ -15,9 +15,11 @@ import FeedbackForm from './components/FeedbackForm';
 import Sidebar from './components/Sidebar';
 import AccountPage from './components/AccountPage';
 import AuthPopup from './components/AuthPopup';
+import MobileLanding from './components/MobileLanding';
 import { CVData, UserPreferences, AnalysisResult, AppStep } from './types';
 import AboutPage from './components/AboutPage';
 import HistoryPage from './components/HistoryPage';
+import { useMobileDetection } from './hooks/useMobileDetection';
 
 // Auth Callback Component
 function AuthCallback() {
@@ -195,6 +197,16 @@ function DashboardFlow() {
 
 function AppContent() {
   const { loading } = useAuth();
+  const isMobile = useMobileDetection();
+  const [showDesktopVersion, setShowDesktopVersion] = useState(() => {
+    // Check if user previously chose to continue to desktop version
+    return localStorage.getItem('jobify-desktop-version') === 'true';
+  });
+
+  const handleContinueToDesktop = () => {
+    setShowDesktopVersion(true);
+    localStorage.setItem('jobify-desktop-version', 'true');
+  };
 
   if (loading) {
     return (
@@ -205,6 +217,11 @@ function AppContent() {
         </div>
       </div>
     );
+  }
+
+  // Show mobile landing page for mobile devices (unless user chose to continue)
+  if (isMobile && !showDesktopVersion) {
+    return <MobileLanding onContinue={handleContinueToDesktop} />;
   }
 
   return (

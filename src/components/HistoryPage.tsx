@@ -199,8 +199,8 @@ const HistoryPage: React.FC = () => {
                                 <div className="mb-6">
                                     <div className="text-center">
                                         <div className={`inline-flex items-center justify-center w-20 h-20 rounded-full text-3xl font-bold border-4 ${selectedAnalysis.analysis_result.overallScore >= 80 ? 'bg-green-100 border-green-200' :
-                                                selectedAnalysis.analysis_result.overallScore >= 60 ? 'bg-yellow-100 border-yellow-200' :
-                                                    'bg-red-100 border-red-200'
+                                            selectedAnalysis.analysis_result.overallScore >= 60 ? 'bg-yellow-100 border-yellow-200' :
+                                                'bg-red-100 border-red-200'
                                             }`}>
                                             <span className={getScoreColor(selectedAnalysis.analysis_result.overallScore)}>
                                                 {selectedAnalysis.analysis_result.overallScore}
@@ -242,8 +242,8 @@ const HistoryPage: React.FC = () => {
                                                     <div className="flex items-start justify-between mb-2">
                                                         <h4 className="font-medium text-gray-900">{area.area}</h4>
                                                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${area.priority === 'high' ? 'bg-red-100 text-red-800' :
-                                                                area.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                                                                    'bg-green-100 text-green-800'
+                                                            area.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
+                                                                'bg-green-100 text-green-800'
                                                             }`}>
                                                             {area.priority.toUpperCase()}
                                                         </span>

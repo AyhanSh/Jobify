@@ -38,9 +38,9 @@ const WelcomePopup: React.FC<WelcomePopupProps> = ({ isOpen, onClose }) => {
 
                     {/* Date and Version */}
                     <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600 mb-4">
-                        <span>5th July 2025</span>
+                        <span>4th Aug 2025</span>
                         <span>•</span>
-                        <span>🚀 v0.2.0</span>
+                        <span>🚀 v0.2.1</span>
                     </div>
 
                     {/* Message */}
