@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Grid, User, CreditCard, Info, History, LogOut } from 'lucide-react';
+import { Grid, User, CreditCard, Info, History, LogOut, FileText } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import AuthPopup from './AuthPopup';
-import logo from '../../public/logo.png';
+import logo from '/logo.png';
 import { AppStep } from '../types';
 import profilePic from '/profile.jpeg';
 
@@ -22,13 +22,13 @@ const menuItems: MenuItem[] = [
     {
         key: 'analyze',
         label: 'analyze',
-        icon: <History className="w-4 h-4 mr-2" />,
+        icon: <FileText className="w-4 h-4 mr-2" />,
         to: '/',
     },
     {
         key: 'dashboard',
         label: 'dashboard',
-        icon: <Grid className="w-4 h-4 mr-2" />,
+        icon: <History className="w-4 h-4 mr-2" />,
         to: '/Dashboard', // Updated route
     },
     {

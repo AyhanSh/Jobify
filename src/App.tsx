@@ -213,9 +213,9 @@ function AppContent() {
         <Sidebar />
         <Routes>
           <Route path="/" element={<DashboardFlow />} />
+          <Route path="/Dashboard" element={<div className='flex-1 ml-64'><HistoryPage /></div>} />
           <Route path="/account" element={<div className='flex-1 ml-64'><AccountPage /></div>} />
           <Route path="/about" element={<div className='flex-1 ml-64'><AboutPage /></div>} />
-          <Route path="/history" element={<div className='flex-1 ml-64'><HistoryPage /></div>} />
           <Route path="/auth/callback" element={<AuthCallback />} />
         </Routes>
       </div>
