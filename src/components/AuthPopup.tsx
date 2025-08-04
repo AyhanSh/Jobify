@@ -6,13 +6,15 @@ interface AuthPopupProps {
     onClose: () => void;
     title?: string;
     message?: string;
+    closable?: boolean;
 }
 
 const AuthPopup: React.FC<AuthPopupProps> = ({
     isOpen,
     onClose,
     title = "Sign in to continue",
-    message = "To access this feature, please sign in with your Google account."
+    message = "To access this feature, please sign in with your Google account.",
+    closable = true
 }) => {
     const { signInWithGoogle, loading } = useAuth();
 
@@ -23,20 +25,22 @@ const AuthPopup: React.FC<AuthPopupProps> = ({
             {/* Backdrop */}
             <div
                 className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-fadeIn"
-                onClick={onClose}
+                onClick={closable ? onClose : undefined}
             />
 
             {/* Modal */}
             <div className="relative bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md mx-4 transform animate-slideIn">
-                {/* Close button */}
-                <button
-                    onClick={onClose}
-                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
+                {/* Close button - only show if closable */}
+                {closable && (
+                    <button
+                        onClick={onClose}
+                        className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    >
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                )}
 
                 {/* Content */}
                 <div className="text-center">
@@ -63,12 +67,14 @@ const AuthPopup: React.FC<AuthPopupProps> = ({
                         {loading ? 'Signing in...' : 'Continue with Google'}
                     </button>
 
-                    <button
-                        onClick={onClose}
-                        className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
-                    >
-                        Maybe later
-                    </button>
+                    {closable && (
+                        <button
+                            onClick={onClose}
+                            className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+                        >
+                            Maybe later
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

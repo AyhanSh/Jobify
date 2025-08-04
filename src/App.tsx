@@ -17,6 +17,7 @@ import AccountPage from './components/AccountPage';
 import AuthPopup from './components/AuthPopup';
 import { CVData, UserPreferences, AnalysisResult, AppStep } from './types';
 import AboutPage from './components/AboutPage';
+import HistoryPage from './components/HistoryPage';
 
 // Auth Callback Component
 function AuthCallback() {
@@ -90,6 +91,31 @@ function DashboardFlow() {
     if (cvData && cvData.content.toLowerCase().includes('amina')) {
       setShowMemePopup(true);
     }
+
+    // Save analysis to database if user is authenticated
+    if (user && cvData) {
+      saveAnalysisToDatabase(result, cvData);
+    }
+  };
+
+  const saveAnalysisToDatabase = async (result: AnalysisResult, cvData: CVData) => {
+    try {
+      const { error } = await supabase
+        .from('cv_analyses')
+        .insert({
+          user_id: user?.id,
+          cv_file_name: cvData.fileName,
+          analysis_result: result,
+          target_position: preferences?.targetPosition,
+          industry: preferences?.industry
+        });
+
+      if (error) {
+        console.error('Error saving analysis:', error);
+      }
+    } catch (error) {
+      console.error('Error saving analysis:', error);
+    }
   };
 
   const handleRestart = () => {
@@ -106,6 +132,13 @@ function DashboardFlow() {
     }
     // User is authenticated, they can view results normally
   };
+
+  // Show non-closable auth popup when analysis is ready and user is not authenticated
+  useEffect(() => {
+    if (currentStep === 'results' && analysisResult && !user) {
+      setShowAuthPopup(true);
+    }
+  }, [currentStep, analysisResult, user]);
 
   return (
     <div className="flex-1 ml-64">
@@ -151,6 +184,7 @@ function DashboardFlow() {
         onClose={() => setShowAuthPopup(false)}
         title="Sign in to view your analysis"
         message="To see your detailed CV analysis and save your results, please sign in with your Google account."
+        closable={user !== null}
       />
 
       <Analytics />
@@ -181,6 +215,7 @@ function AppContent() {
           <Route path="/" element={<DashboardFlow />} />
           <Route path="/account" element={<div className='flex-1 ml-64'><AccountPage /></div>} />
           <Route path="/about" element={<div className='flex-1 ml-64'><AboutPage /></div>} />
+          <Route path="/history" element={<div className='flex-1 ml-64'><HistoryPage /></div>} />
           <Route path="/auth/callback" element={<AuthCallback />} />
         </Routes>
       </div>

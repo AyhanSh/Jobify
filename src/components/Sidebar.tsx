@@ -20,10 +20,16 @@ type MenuItem = {
 
 const menuItems: MenuItem[] = [
     {
+        key: 'analyze',
+        label: 'analyze',
+        icon: <History className="w-4 h-4 mr-2" />,
+        to: '/',
+    },
+    {
         key: 'dashboard',
         label: 'dashboard',
         icon: <Grid className="w-4 h-4 mr-2" />,
-        to: '/',
+        to: '/Dashboard', // Updated route
     },
     {
         key: 'account',
@@ -45,12 +51,6 @@ const moreItems: MenuItem[] = [
         label: 'about jobify',
         icon: <Info className="w-4 h-4 mr-2" />,
         to: '/about', // Updated route
-    },
-    {
-        key: 'history',
-        label: 'history',
-        icon: <History className="w-4 h-4 mr-2" />,
-        to: '#', // Placeholder for future route
     },
 ];
 
