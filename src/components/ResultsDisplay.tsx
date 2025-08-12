@@ -8,9 +8,11 @@ interface ResultsDisplayProps {
   results: AnalysisResult;
   onRestart: () => void;
   onViewResults?: () => void;
+  onSaveAnalysis?: () => void;
+  isAnalysisSaved?: boolean;
 }
 
-const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart, onViewResults }) => {
+const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart, onViewResults, onSaveAnalysis, isAnalysisSaved = false }) => {
   const { user } = useAuth();
 
   // Defensive checks for all nested properties
@@ -58,7 +60,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart, onV
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
+    <div className="max-w-7xl px-4 pr-8 py-6">
       <div className="text-center mb-8">
         <div className="mx-auto w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mb-4">
           <CheckCircle className="w-8 h-8 text-white" />
@@ -69,7 +71,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart, onV
         </p>
       </div>
       {/* Overall Score */}
-      <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
+      <div className="bg-white rounded-2xl shadow-lg p-8 xl:p-10 mb-8">
         <div className="text-center">
           <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full text-4xl font-bold border-4 ${getScoreBgColor(overallScore)}`}>
             <span className={getScoreColor(overallScore)}>{overallScore}</span>
@@ -80,6 +82,28 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onRestart, onV
               overallScore >= 60 ? 'Good foundation with room for improvement.' :
                 'Significant improvements needed to enhance your CV.'}
           </p>
+
+          {/* Save Analysis Button */}
+          {user && onSaveAnalysis && (
+            <div className="mt-6">
+              {isAnalysisSaved ? (
+                <div className="inline-flex items-center px-4 py-2 bg-green-100 text-green-800 rounded-lg">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  Analysis Saved to Dashboard
+                </div>
+              ) : (
+                <button
+                  onClick={onSaveAnalysis}
+                  className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                  </svg>
+                  Save Analysis to Dashboard
+                </button>
+              )}
+            </div>
+          )}
         </div>
       </div>
       {/* Analysis Sections */}

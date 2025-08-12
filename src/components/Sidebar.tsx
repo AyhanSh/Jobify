@@ -80,7 +80,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
 
     return (
         <>
-            <aside className="h-screen w-64 bg-white border-r border-gray-200 flex flex-col justify-between py-8 px-6 fixed left-0 top-0 z-40">
+            <aside className="h-screen w-56 bg-white border-r border-gray-200 flex flex-col justify-between py-8 px-5 fixed left-0 top-0 z-40">
                 <div>
                     {/* Logo */}
                     <div className="flex items-center mb-10">

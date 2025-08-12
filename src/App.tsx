@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
@@ -17,8 +17,10 @@ import AccountPage from './components/AccountPage';
 import AuthPopup from './components/AuthPopup';
 import MobileLanding from './components/MobileLanding';
 import { CVData, UserPreferences, AnalysisResult, AppStep } from './types';
+
 import AboutPage from './components/AboutPage';
 import HistoryPage from './components/HistoryPage';
+import ProtectedRoute from './components/ProtectedRoute';
 import { useMobileDetection } from './hooks/useMobileDetection';
 
 // Auth Callback Component
@@ -27,12 +29,20 @@ function AuthCallback() {
 
   useEffect(() => {
     const handleAuthCallback = async () => {
-      // Parse the URL hash and set the session (Supabase v2+)
-      const { error } = await supabase.auth.exchangeCodeForSession(window.location.href);
+      const href = window.location.href;
+      const url = new URL(href);
+      const hasCode = !!url.searchParams.get('code');
+      const hash = url.hash || '';
+      const hasAccessToken = hash.includes('access_token=');
+      if (!hasCode && !hasAccessToken) {
+        // Nothing to exchange; return to home
+        navigate('/');
+        return;
+      }
+      const { error } = await supabase.auth.exchangeCodeForSession(href);
       if (error) {
         console.error('Auth callback error:', error);
       }
-      // Redirect to home (or wherever you want)
       navigate('/');
     };
 
@@ -54,11 +64,48 @@ function DashboardFlow() {
   const [cvData, setCvData] = useState<CVData | null>(null);
   const [preferences, setPreferences] = useState<UserPreferences | null>(null);
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
+  const [isAnalysisSaved, setIsAnalysisSaved] = useState(false);
   const [showMemePopup, setShowMemePopup] = useState(false);
   const [showWelcomePopup, setShowWelcomePopup] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
   const [showAuthPopup, setShowAuthPopup] = useState(false);
   const { user } = useAuth();
+  const hasSavedThisResultRef = useRef(false);
+
+  // Helpers for persisting a pending analysis across auth redirect
+  const PENDING_KEY = 'jobify-pending-analysis';
+  const writePendingAnalysis = (params: { result: AnalysisResult; cv: CVData; prefs: UserPreferences; }) => {
+    try {
+      const payload = {
+        result: params.result,
+        cv: { ...params.cv, uploadDate: params.cv.uploadDate?.toString?.() || new Date().toString() },
+        prefs: params.prefs,
+        createdAt: new Date().toISOString(),
+      };
+      localStorage.setItem(PENDING_KEY, JSON.stringify(payload));
+    } catch (err) {
+      console.warn('Failed to persist pending analysis', err);
+    }
+  };
+  const readPendingAnalysis = (): null | { result: AnalysisResult; cv: CVData; prefs: UserPreferences; } => {
+    try {
+      const raw = localStorage.getItem(PENDING_KEY);
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      const cv: CVData = {
+        fileName: data.cv.fileName,
+        content: data.cv.content,
+        uploadDate: new Date(data.cv.uploadDate || Date.now()),
+      };
+      return { result: data.result as AnalysisResult, cv, prefs: data.prefs as UserPreferences };
+    } catch (err) {
+      console.warn('Failed to read pending analysis', err);
+      return null;
+    }
+  };
+  const clearPendingAnalysis = () => {
+    try { localStorage.removeItem(PENDING_KEY); } catch { }
+  };
 
   useEffect(() => {
     const hasVisited = localStorage.getItem('jobify-welcome-shown');
@@ -90,23 +137,32 @@ function DashboardFlow() {
   const handleAnalysisComplete = (result: AnalysisResult) => {
     setAnalysisResult(result);
     setCurrentStep('results');
+    setIsAnalysisSaved(false); // Reset saved state for new analysis
+    hasSavedThisResultRef.current = false;
     if (cvData && cvData.content.toLowerCase().includes('amina')) {
       setShowMemePopup(true);
     }
 
+    // If unauthenticated, persist the analysis so we can save it post-login
+    if (!user && cvData && preferences) {
+      writePendingAnalysis({ result, cv: cvData, prefs: preferences });
+    }
+
     // Save analysis to database if user is authenticated
-    if (user && cvData) {
+    if (user && cvData && !hasSavedThisResultRef.current) {
       saveAnalysisToDatabase(result, cvData);
+      setIsAnalysisSaved(true);
+      hasSavedThisResultRef.current = true;
     }
   };
 
-  const saveAnalysisToDatabase = async (result: AnalysisResult, cvData: CVData) => {
+  const saveAnalysisToDatabase = async (result: AnalysisResult, cv: CVData) => {
     try {
       const { error } = await supabase
         .from('cv_analyses')
         .insert({
           user_id: user?.id,
-          cv_file_name: cvData.fileName,
+          cv_file_name: cv.fileName,
           analysis_result: result,
           target_position: preferences?.targetPosition,
           industry: preferences?.industry
@@ -124,7 +180,23 @@ function DashboardFlow() {
     setCvData(null);
     setPreferences(null);
     setAnalysisResult(null);
+    setIsAnalysisSaved(false);
+    hasSavedThisResultRef.current = false;
+    clearPendingAnalysis();
     setCurrentStep('upload');
+  };
+
+  const handleSaveAnalysis = async () => {
+    if (user && analysisResult && cvData && !hasSavedThisResultRef.current) {
+      try {
+        await saveAnalysisToDatabase(analysisResult, cvData);
+        setIsAnalysisSaved(true);
+        hasSavedThisResultRef.current = true;
+        clearPendingAnalysis();
+      } catch (error) {
+        console.error('Error saving analysis:', error);
+      }
+    }
   };
 
   const handleViewResults = () => {
@@ -139,11 +211,49 @@ function DashboardFlow() {
   useEffect(() => {
     if (currentStep === 'results' && analysisResult && !user) {
       setShowAuthPopup(true);
+    } else if (currentStep === 'results' && analysisResult && user) {
+      setShowAuthPopup(false);
     }
   }, [currentStep, analysisResult, user]);
 
+  // After sign-in, if there is a pending analysis, restore it, auto-save, and show results
+  const pendingHandledRef = useRef(false);
+  useEffect(() => {
+    if (!user) return;
+
+    // Process pending once per login
+    if (!pendingHandledRef.current) {
+      const pending = readPendingAnalysis();
+      if (pending) {
+        pendingHandledRef.current = true;
+        hasSavedThisResultRef.current = true; // prevent double-save paths
+        setCvData(pending.cv);
+        setPreferences(pending.prefs);
+        setAnalysisResult(pending.result);
+        setCurrentStep('results');
+        (async () => {
+          await saveAnalysisToDatabase(pending.result, pending.cv);
+          setIsAnalysisSaved(true);
+          clearPendingAnalysis();
+          setShowAuthPopup(false);
+        })();
+        return;
+      }
+    }
+
+    // If no pending but we already have results in state and not saved, save once
+    if (!hasSavedThisResultRef.current && analysisResult && cvData) {
+      hasSavedThisResultRef.current = true;
+      (async () => {
+        await saveAnalysisToDatabase(analysisResult, cvData);
+        setIsAnalysisSaved(true);
+        clearPendingAnalysis();
+      })();
+    }
+  }, [user]);
+
   return (
-    <div className="flex-1 ml-64">
+    <div className="flex-1 ml-60">
       <Header currentStep={getStepNumber(currentStep)} totalSteps={4} />
       <main className="py-8">
         {currentStep === 'upload' && (
@@ -167,6 +277,8 @@ function DashboardFlow() {
             results={analysisResult}
             onRestart={handleRestart}
             onViewResults={handleViewResults}
+            onSaveAnalysis={handleSaveAnalysis}
+            isAnalysisSaved={isAnalysisSaved}
           />
         )}
       </main>
@@ -230,9 +342,16 @@ function AppContent() {
         <Sidebar />
         <Routes>
           <Route path="/" element={<DashboardFlow />} />
-          <Route path="/Dashboard" element={<div className='flex-1 ml-64'><HistoryPage /></div>} />
-          <Route path="/account" element={<div className='flex-1 ml-64'><AccountPage /></div>} />
-          <Route path="/about" element={<div className='flex-1 ml-64'><AboutPage /></div>} />
+          <Route path="/Dashboard" element={
+            <ProtectedRoute
+              title="Sign in to view your dashboard"
+              message="To access your analysis history and saved results, please sign in with your Google account."
+            >
+              <div className='flex-1 ml-56'><HistoryPage /></div>
+            </ProtectedRoute>
+          } />
+          <Route path="/account" element={<div className='flex-1 ml-56'><AccountPage /></div>} />
+          <Route path="/about" element={<div className='flex-1 ml-56'><AboutPage /></div>} />
           <Route path="/auth/callback" element={<AuthCallback />} />
         </Routes>
       </div>

@@ -15,7 +15,6 @@
 ## 2. Get Project Credentials
 
 1. Go to Settings → API
-2. Copy the following values:
    - Project URL
    - Anon public key
 
